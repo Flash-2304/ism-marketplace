@@ -1,10 +1,15 @@
 //Imports
 const express = require('express');
 const cors = require('cors');
+const connectDB = require('./config/db'); //DATABASE
 require('dotenv').config(); 
 
 //Initialize the Express app
 const app = express();
+
+//Connection to database
+connectDB();
+
 
 //MiddleWares
 app.use(cors()); //Allows frontend to make requests
