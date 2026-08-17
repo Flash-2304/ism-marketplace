@@ -12,6 +12,7 @@ connectDB();
 
 
 //MiddleWares
+app.use('/api/users', require('./routes/userRoutes'));
 app.use(cors()); //Allows frontend to make requests
 app.use(express.json()); //Express to understand data sent in json Requests
 
