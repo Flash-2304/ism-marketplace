@@ -39,4 +39,53 @@ const getProducts = async (req, res) => {
     }
 };
 
-module.exports = { createProduct, getProducts };
+const deleteProduct = async (req, res) => {
+    try {
+        //Find the specific product by the ID in the URL
+        const product = await Product.findById(req.params.id);
+
+        //Check if the product actually exists
+        if (!product) {
+            return res.status(404).json({ message: 'Product not found' });
+        }
+
+        //The Authorization Check (The Fortress Wall)
+        if (product.user.toString() !== req.user.id) {
+            return res.status(401).json({ message: 'User not authorized to delete this product' });
+        }
+
+        //Execute the deletion
+        await product.deleteOne();
+
+        res.status(200).json({ id: req.params.id, message: 'Product removed successfully' });
+    } catch (error) {
+        res.status(500).json({ message: 'Failed to delete product', error: error.message });
+    }
+};
+
+const markAsSold = async (req, res) => {
+    try {
+        const product = await Product.findById(req.params.id);
+
+        if (!product) {
+            return res.status(404).json({ message: 'Product not found' });
+        }
+
+        //Ownership check
+        if (product.user.toString() !== req.user.id) {
+            return res.status(401).json({ message: 'User not authorized to update this product' });
+        }
+
+        //Flip the boolean
+        product.isSold = true;
+        
+        //Save the updated product back to the database
+        const updatedProduct = await product.save();
+
+        res.status(200).json(updatedProduct);
+    } catch (error) {
+        res.status(500).json({ message: 'Failed to update product' });
+    }
+};
+
+module.exports = { createProduct, getProducts, deleteProduct, markAsSold };

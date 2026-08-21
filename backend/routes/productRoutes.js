@@ -8,5 +8,7 @@ router.get('/', getProducts);
 
 // Route to create a product (Protected - must have a VIP wristband)
 router.post('/', protect, createProduct);
+router.delete('/:id', protect, deleteProduct); 
+router.put('/:id/sold', protect, markAsSold);
 
 module.exports = router;
