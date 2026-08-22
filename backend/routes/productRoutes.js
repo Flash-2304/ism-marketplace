@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { createProduct, getProducts } = require('../controllers/productController');
+const {createProduct,getProducts,deleteProduct,markAsSold} = require('../controllers/productController');
 const { protect } = require('../middleware/authMiddleware');
 
 // Route to fetch all products (Public - anyone can browse)
