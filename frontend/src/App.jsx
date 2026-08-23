@@ -3,15 +3,17 @@ import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import Register from './pages/Register';
 import Login from './pages/Login';
+import CreateProduct from './pages/CreateProduct'; 
 
 function App() {
   return (
     <BrowserRouter>
       <Navbar />
-      <Routes>    
+      <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/create-product" element={<CreateProduct />} />
       </Routes>
     </BrowserRouter>
   );
