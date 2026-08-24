@@ -10,17 +10,22 @@ const app = express();
 //Connection to database
 connectDB();
 
+app.use(express.json()); //Express to understand data sent in json Requests
 
 //MiddleWares
-app.use('/api/users', require('./routes/userRoutes'));
-app.use('/api/upload', require('./routes/uploadRoutes'));
-app.use('/api/products', require('./routes/productRoutes'));
+app.use(express.json()); // Allows us to accept JSON data
 
-app.use(cors()); //Allows frontend to make requests
-app.use(express.json()); //Express to understand data sent in json Requests
+app.use(cors({
+    origin: '*', // Temporarily allow ANY origin to guarantee it passes
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+}));
+
 
 
 //Routes
+app.use('/api/users', require('./routes/userRoutes'));
+app.use('/api/upload', require('./routes/uploadRoutes'));
+app.use('/api/products', require('./routes/productRoutes'));
 
 app.get('/', (req, res) => {
     res.send('IIT ISM Marketplace API is running...');

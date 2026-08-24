@@ -2,7 +2,7 @@ import axios from 'axios';
 
 // 1. Create a custom post office that knows where our backend lives
 const API = axios.create({
-    baseURL: 'http://localhost:5000/api', 
+    baseURL: 'http://localhost:5001/api', 
 });
 
 // 2. The Interceptor: Stop every request before it leaves React

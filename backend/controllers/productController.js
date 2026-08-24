@@ -88,4 +88,21 @@ const markAsSold = async (req, res) => {
     }
 };
 
-module.exports = { createProduct, getProducts, deleteProduct, markAsSold };
+// Fetch a single product by its ID and include the seller's contact info
+const getProductById = async (req, res) => {
+    try {
+        // .populate() is MongoDB magic. Instead of just giving us the seller's ID, 
+        // it goes to the User database and fetches their name and WhatsApp number!
+        const product = await Product.findById(req.params.id).populate('user', 'name whatsappNumber');
+        
+        if (product) {
+            res.status(200).json(product);
+        } else {
+            res.status(404).json({ message: 'Product not found' });
+        }
+    } catch (error) {
+        res.status(500).json({ message: 'Failed to fetch product details' });
+    }
+};
+
+module.exports = { createProduct, getProducts, deleteProduct, markAsSold , getProductById};
