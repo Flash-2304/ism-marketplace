@@ -30,6 +30,7 @@ const Navbar = () => {
                     // YES: Render this block (The Fragment <></> lets us return multiple elements)
                     <>
                         <span style={{ color: '#00ffcc' }}>Hey, {user.name}</span>
+                        <Link to="/profile" style={{ marginRight: '15px', color: '#00ffcc', textDecoration: 'none' }}>Dashboard</Link>
                         <button onClick={handleLogout} style={{ padding: '8px 16px', cursor: 'pointer', backgroundColor: '#ff4444', color: 'white', border: 'none', borderRadius: '4px' }}>
                             Logout
                         </button>

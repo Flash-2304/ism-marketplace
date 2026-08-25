@@ -1,4 +1,5 @@
 const Product = require('../models/productModel');
+const { get } = require('../routes/productRoutes');
 
 const createProduct = async (req, res) => {
     const { name, price, description, category, imageUrl } = req.body;
@@ -105,4 +106,15 @@ const getProductById = async (req, res) => {
     }
 };
 
-module.exports = { createProduct, getProducts, deleteProduct, markAsSold , getProductById};
+// Fetch only the products that belong to the currently logged-in user
+const getMyProducts = async (req, res) => {
+    try {
+        // req.user.id comes directly from our JWT 'protect' bouncer!
+        const products = await Product.find({ user: req.user.id });
+        res.status(200).json(products);
+    } catch (error) {
+        res.status(500).json({ message: 'Failed to fetch your products' });
+    }
+};
+
+module.exports = { createProduct, getProducts, deleteProduct, markAsSold , getProductById ,getMyProducts};
