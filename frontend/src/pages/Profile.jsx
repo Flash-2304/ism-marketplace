@@ -32,7 +32,7 @@ const Profile = () => {
                 setMyProducts(myProducts.filter((item) => item._id !== id));
                 alert("Item deleted.");
             } catch (error) {
-                alert("Failed to delete item.");
+                alert(`Failed to delete item.${error}`);
             }
         }
     };
@@ -45,7 +45,7 @@ const Profile = () => {
                 item._id === id ? response.data : item
             ));
         } catch (error) {
-            alert("Failed to update status.");
+            alert(`Failed to delete item.${error}`);
         }
     };
 

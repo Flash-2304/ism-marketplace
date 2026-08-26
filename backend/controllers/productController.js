@@ -27,13 +27,13 @@ const createProduct = async (req, res) => {
     }
 };
 
+// Fetch ALL unsold products and sort them by newest first
 const getProducts = async (req, res) => {
     try {
-        // Fetch all unsold products, newest first
-        const products = await Product.find({ isSold: false })
-            .populate('user', 'name whatsappNumber email')
-            .sort({ createdAt: -1 });
-
+        // 1. { isSold: false } acts as a filter so sold items stay hidden
+        // 2. .sort({ createdAt: -1 }) arranges them so the newest items are index 0
+        const products = await Product.find({ isSold: false }).sort({ createdAt: -1 });
+        
         res.status(200).json(products);
     } catch (error) {
         res.status(500).json({ message: 'Failed to fetch products' });
